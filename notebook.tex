@@ -1,0 +1,60 @@
+\startenvironment *
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Paper size, trim, layout
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definepapersize [notebook] [width=6.75in, height=11in]
+\setuppapersize  [notebook]
+
+\definelayout[narrow][
+  backspace=4.5pc,
+  rightmargindistance=6pt,
+  rightmargin=6pc,
+  rightedgedistance=0pc,
+  rightedge=3pc,
+  header=0pc,
+  width=27pc,
+  height=54pc]
+\setuplayout[narrow]
+
+\setuppagenumbering[alternative=doublesided, location={footer,right}]
+
+\setupmargindata[inmargin][location=right,
+  style=normal,smaller]
+
+\setupindenting[yes,medium,next]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Structural forms and devices
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\define[1]\remark{\setff{smallcaps}\color[blue]{#1}}
+\define[1]\definition{{\bf #1}}
+
+\setuphead[chapter][style=smallcaps]
+\setuphead[section][style=smallcaps]
+\setuphead[subsection][style=smallcaps]
+
+%-------------
+% Symbols
+%-------------
+\usesymbols[mvs]
+
+%-------------
+% Lists
+%-------------
+\defineitemgroup[inline]
+\setupitemgroup[inline][text, m]
+
+\defineitemgroup[sequence]
+\setupitemgroup[sequence][packed]
+
+\defineenumeration[example][
+  location=top,
+  prefix=chapter,    
+  text=Example,      % Display header as Example 1.1
+  headstyle=bold,    
+  after=\blank]
+
+\stopenvironment
