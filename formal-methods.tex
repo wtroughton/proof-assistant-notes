@@ -1,0 +1,84 @@
+\environment notebook
+
+\starttext
+
+\chapter{Introduction to Formal Methods}
+
+\chapter{Functional Programming in Coq}
+Functional programming is founded on mathematical functions: if a procedure has no side effects, then (ignoring efficiency) all we need to care about is how it maps inputs to outputs. This direct connection between programs and mathematical objects supports formal correctness proofs and sound informal reasoning about program behavior.
+% \margintext[location=right, style=slanted]{Conclusive truth}
+
+\section{Data and Functions}
+
+\subsection{Enumerated Types}
+The built-in features of Coq is extremely small. Coq can define new data types from scratch to implement the usual atomic data types (booleans, integers, strings) found in other programming languages. 
+
+Here is an example of a declaration defining a set of data values -- a new type called \type{day}.
+
+\starttyping
+Inductive day : Type :=
+  | monday
+  | tuesday
+  | wednesday
+  | thursday
+  | friday
+  | saturday
+  | sunday.
+\stoptyping
+
+\noindent Having defined \type{day}, we can write functions that operate on days.
+
+\starttyping
+Definition next_weekday (d: day) : day :=
+  match d with
+  | monday => tuesday
+  | tuesday => wednesday
+  | wednesday => thursday
+  | thursday => friday
+  | friday => monday
+  | saturday => monday
+  | sunday => monday
+  end.
+\stoptyping
+
+\noindent Note the argument and return types are explicitly declared. Coq can also figure out types based on type inference but it is best to generally include them to make reading easier.
+
+To check the function on some examples, we can use the command \type{Compute} to evaluate an expression involving \type{next_weekday}.
+
+\starttyping
+Compute (next_weekday friday).
+= monday : day
+
+Compute (next_weekday (next_weekday saturday)).
+= tuesday : day
+\stoptyping
+
+\noindent Coq's workflow is designed to test subgoals. We can record what we expect the result to be in the form of a Coq \type{Example}:
+
+\starttyping
+Example test_next_weekday:
+  (next_weekday (next_weekday saturday)) = tuesday.
+\stoptyping
+
+\subsection{Boolean}
+
+We can define the standard type \type{bool} with members \type{true} and \type{false}.
+
+\starttyping
+Inductive bool : Type := 
+  | true
+  | false.
+\stoptyping
+
+\noindent Functions over booleans:
+
+\starttyping
+Definition negb (b:bool) : bool :=
+
+Definition andb (b1:bool) (b2:bool) : bool :=
+
+Definition orb (b1:bool) (b2:bool) : bool :=
+
+\stoptyping
+
+\stoptext
